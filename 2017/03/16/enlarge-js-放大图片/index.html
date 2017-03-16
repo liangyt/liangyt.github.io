@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>enlarge.js 放大图片 | Liangyt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="利用jquery 插件 jquery.enlarge.js 进行图片的放大处理。代码：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&amp;quot;zh-cn&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="enlarge.js 放大图片">
+<meta property="og:url" content="http://yoursite.com/2017/03/16/enlarge-js-放大图片/index.html">
+<meta property="og:site_name" content="Liangyt">
+<meta property="og:description" content="利用jquery 插件 jquery.enlarge.js 进行图片的放大处理。代码：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&amp;quot;zh-cn&amp;">
+<meta property="og:updated_time" content="2017-03-16T05:09:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="enlarge.js 放大图片">
+<meta name="twitter:description" content="利用jquery 插件 jquery.enlarge.js 进行图片的放大处理。代码：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&amp;quot;zh-cn&amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Liangyt" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Liangyt</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-enlarge-js-放大图片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/16/enlarge-js-放大图片/" class="article-date">
+  <time datetime="2017-03-16T03:40:56.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      enlarge.js 放大图片
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>利用jquery 插件 <a href="https://github.com/abelyao/enlarge.js" target="_blank" rel="external">jquery.enlarge.js</a> 进行图片的放大处理。<br>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html lang=&quot;zh-cn&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;meta name=&quot;keywords&quot; content=&quot; &quot; /&gt;</div><div class="line">    &lt;meta name=&quot;description&quot; content=&quot; &quot; /&gt;</div><div class="line">    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=Edge, chrome=1&quot; /&gt;</div><div class="line">    &lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;</div><div class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot; /&gt;</div><div class="line">    &lt;title&gt;enLarge.js&lt;/title&gt;</div><div class="line">    &lt;style&gt;</div><div class="line">        * &#123;</div><div class="line">            padding: 0;</div><div class="line">            margin: 0;</div><div class="line">        &#125;</div><div class="line">        #demo1 &#123;</div><div class="line">            display: block;</div><div class="line">            width: 100px;</div><div class="line">            height: 100px;</div><div class="line">        &#125;</div><div class="line">        img &#123;</div><div class="line">            width: 100px;</div><div class="line">            height: 100px;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">    &lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;jquery.enlarge.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;a id=&quot;demo1&quot; href=&quot;IMG_0685.JPG&quot;&gt;</div><div class="line">        &lt;img src=&quot;IMG_0685.JPG&quot;&gt;</div><div class="line">    &lt;/a&gt;</div><div class="line"></div><div class="line">    &lt;script&gt;</div><div class="line">        $(&apos;#demo1&apos;).enlarge();</div><div class="line">        </div><div class="line">        // 以下的配置项是默认的值，可以自行修改</div><div class="line">        // $(&quot;#demo1&quot;).enlarge(</div><div class="line">        //     &#123;</div><div class="line">        //         // 鼠标遮罩层样式</div><div class="line">        //         shadecolor: &quot;#FFD24D&quot;,</div><div class="line">        //         shadeborder: &quot;#FF8000&quot;,</div><div class="line">        //         shadeopacity: 0.5,</div><div class="line">        //         cursor: &quot;move&quot;,</div><div class="line"></div><div class="line">        //         // 大图外层样式</div><div class="line">        //         layerwidth: 400,</div><div class="line">        //         layerheight: 300,</div><div class="line">        //         layerborder: &quot;#DDD&quot;,</div><div class="line">        //         fade: true,</div><div class="line"></div><div class="line">        //         // 大图尺寸</div><div class="line">        //         largewidth: 1280,</div><div class="line">        //         largeheight: 960</div><div class="line">        //     &#125;</div><div class="line">        // );</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/16/enlarge-js-放大图片/" data-id="cj0bxsv8b0000qy24dckmraqp" class="article-share-link">Delen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ouder</strong>
+      <div class="article-nav-title">gulp 简单开发流程配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Liangyt<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
