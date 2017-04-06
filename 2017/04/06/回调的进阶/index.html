@@ -5,28 +5,31 @@
   
   <title>回调的进阶 | Liangyt</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="回调地狱问题？
+  <meta name="description" content="一、回调地狱问题？
+以下的代码建议在Node.js环境下运行，可以安装两个插件 npm install xmlhttprequest jsdom
 
 有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  
 
-使用原生JS实现。12345678910111213141516171819function first() &amp;#123;    var url = &amp;apos;&amp;apos;;    var result;    var XHR = new XMLHttpRequest();    XHR.open">
+使用原生JS实现。12345678910111213141516171819202122232425262728293031323334function first() &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回调的进阶">
 <meta property="og:url" content="http://yoursite.com/2017/04/06/回调的进阶/index.html">
 <meta property="og:site_name" content="Liangyt">
-<meta property="og:description" content="回调地狱问题？
+<meta property="og:description" content="一、回调地狱问题？
+以下的代码建议在Node.js环境下运行，可以安装两个插件 npm install xmlhttprequest jsdom
 
 有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  
 
-使用原生JS实现。12345678910111213141516171819function first() &amp;#123;    var url = &amp;apos;&amp;apos;;    var result;    var XHR = new XMLHttpRequest();    XHR.open">
-<meta property="og:updated_time" content="2017-04-06T05:37:28.000Z">
+使用原生JS实现。12345678910111213141516171819202122232425262728293031323334function first() &amp;">
+<meta property="og:updated_time" content="2017-04-06T09:47:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回调的进阶">
-<meta name="twitter:description" content="回调地狱问题？
+<meta name="twitter:description" content="一、回调地狱问题？
+以下的代码建议在Node.js环境下运行，可以安装两个插件 npm install xmlhttprequest jsdom
 
 有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  
 
-使用原生JS实现。12345678910111213141516171819function first() &amp;#123;    var url = &amp;apos;&amp;apos;;    var result;    var XHR = new XMLHttpRequest();    XHR.open">
+使用原生JS实现。12345678910111213141516171819202122232425262728293031323334function first() &amp;">
   
     <link rel="alternate" href="/atom.xml" title="Liangyt" type="application/atom+xml">
   
@@ -97,18 +100,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>回调地狱问题？</p>
-</blockquote>
+        <h4 id="一、回调地狱问题？"><a href="#一、回调地狱问题？" class="headerlink" title="一、回调地狱问题？"></a>一、回调地狱问题？</h4><ul>
+<li>以下的代码建议在Node.js环境下运行，可以安装两个插件 <code>npm install xmlhttprequest jsdom</code></li>
+</ul>
 <p>有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  </p>
 <ol>
-<li>使用原生JS实现。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function first() &#123;</div><div class="line">    var url = &apos;&apos;;</div><div class="line">    var result;</div><div class="line"></div><div class="line">    var XHR = new XMLHttpRequest();</div><div class="line">    XHR.open(&apos;GET&apos;, url, true);</div><div class="line">    XHR.send();</div><div class="line"></div><div class="line">    XHR.onreadystatechange = function() &#123;</div><div class="line">        if (XHR.readyState == 4 &amp;&amp; XHR.status == 200) &#123;</div><div class="line">            result = XHR.response;</div><div class="line">            second(result.id)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function second(id) &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<li>使用原生JS实现。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">function first() &#123;</div><div class="line">    var url = &apos;https://liangyt.github.io/demo/data/data.json&apos;;</div><div class="line">    var result;</div><div class="line"></div><div class="line">    var XHR = new XMLHttpRequest();</div><div class="line">    XHR.open(&apos;GET&apos;, url, true);</div><div class="line">    XHR.send();</div><div class="line"></div><div class="line">    XHR.onreadystatechange = function() &#123;</div><div class="line">        if (XHR.readyState == 4 &amp;&amp; XHR.status == 200) &#123;</div><div class="line"></div><div class="line">            result = JSON.parse(XHR.responseText);</div><div class="line">            second(result.id)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function second(id) &#123;</div><div class="line">    var url = &apos;https://liangyt.github.io/demo/data/data.json?id=id&apos;;</div><div class="line">    var result;</div><div class="line"></div><div class="line">    var XHR = new XMLHttpRequest();</div><div class="line">    XHR.open(&apos;GET&apos;, url, true);</div><div class="line">    XHR.send();</div><div class="line"></div><div class="line">    XHR.onreadystatechange = function() &#123;</div><div class="line">        if (XHR.readyState == 4 &amp;&amp; XHR.status == 200) &#123;</div><div class="line">            result = XHR.responseText;</div><div class="line">            console.log(result)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">first()</div></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>以上的实现使用原生的JS实现的，如果还有依赖于第二次请求返回结果的别的请求，则继续在请求结果返回后回调处理。  </p>
+<ol>
+<li>使用jQuery ajax 处理请求  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">require(&quot;jsdom&quot;).env(&quot;&quot;, function(err, window) &#123;</div><div class="line">    if (err) &#123;</div><div class="line">        console.error(err);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    var $ = require(&quot;jquery&quot;)(window);</div><div class="line"></div><div class="line">    var url = &apos;https://liangyt.github.io/demo/data/data.json&apos;;</div><div class="line">    // 一般的实现方式是这样的</div><div class="line">    $.ajax(&#123;</div><div class="line">        url: url,</div><div class="line">        success: function(res) &#123;</div><div class="line">            $.ajax(&#123;</div><div class="line">                url: url,</div><div class="line">                data: &#123;</div><div class="line">                    id: res.id</div><div class="line">                &#125;,</div><div class="line">                success: function(second) &#123;</div><div class="line">                    console.log(second)</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上的实现方式一般是咱们使用jQuery 请求接口时使用的方式。  </p>
+<h4 id="二、jQuery-Deferred"><a href="#二、jQuery-Deferred" class="headerlink" title="二、jQuery Deferred"></a>二、jQuery Deferred</h4><p>从 jQuery 1.5 开始，$.ajax()返回的jqXHR对象实现了Promise接口(deferred对象), 使它拥有了 Promise 的所有属性，方法和行为。<br>那么上面的请求可以这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">require(&quot;jsdom&quot;).env(&quot;&quot;, function(err, window) &#123;</div><div class="line">    if (err) &#123;</div><div class="line">        console.error(err);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    var $ = require(&quot;jquery&quot;)(window);</div><div class="line"></div><div class="line">    var url = &apos;https://liangyt.github.io/demo/data/data.json&apos;;</div><div class="line">    $.getJSON(url)</div><div class="line">    .then(function(res) &#123;</div><div class="line">        return $.getJSON(url + &apos;?id=&apos; + res.id)</div><div class="line">    &#125;)</div><div class="line">    .then(function(res) &#123;</div><div class="line">        console.log(res)</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>了解一下 jQuery.Deferred<br>先罗列一下jQuery.Deferred现在还在使用的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">always(callbacks[, callbacks, ..., callbacks]): 添加在该 Deferred 对象被解析或被拒绝时调用的处理函数</div><div class="line">done(callbacks[, callbacks, ..., callbacks]): 添加在该 Deferred 对象被解析时调用的处理函数</div><div class="line">fail(callbacks[, callbacks, ..., callbacks]): 添加在该 Deferred 对象被拒绝时调用的处理函数</div><div class="line">notify([argument, ..., argument]):调用 Deferred 对象上的 progressCallbacks 处理函数并传递制定的参数</div><div class="line">notifyWith(context[, argument, ..., argument]): 在制定的上下文中调用 progressCallbacks 处理函数并传递制定的参数。</div><div class="line">progress(callbacks[, callbacks, ..., callbacks]): 添加在该 Deferred 对象产生进展通知时被调用的处理函数。</div><div class="line">promise([target]): 返回 Deferred 对象的 promise 对象。</div><div class="line">reject([argument, ..., argument]): 拒绝一个 Deferred 对象并以指定的参数调用所有的failCallbacks处理函数。</div><div class="line">rejectWith(context[, argument, ..., argument]): 拒绝一个 Deferred 对象并在指定的上下文中以指定参数调用所有的failCallbacks处理函数。</div><div class="line">resolve([argument, ..., argument]): 解析一个 Deferred 对象并以指定的参数调用所有的 doneCallbackswith 处理函数。</div><div class="line">resolveWith(context[, argument, ..., argument]): 解析一个 Deferred 对象并在指定的上下文中以指定参数调用所有的doneCallbacks处理函数。</div><div class="line">state(): 返回当前 Deferred 对象的状态。</div><div class="line">then(resolvedCallback[, rejectedCallback[, progressCallback]]): 添加在该 Deferred 对象被解析、拒绝或收到进展通知时被调用的处理函数</div></pre></td></tr></table></figure></p>
+<p>下面使用 jQuery.Deferred 写个小例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">require(&quot;jsdom&quot;).env(&quot;&quot;, function(err, window) &#123;</div><div class="line">    if (err) &#123;</div><div class="line">        console.error(err);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    var $ = require(&quot;jquery&quot;)(window);</div><div class="line"></div><div class="line">    var dfd = $.Deferred();</div><div class="line"></div><div class="line">    function simulateAjax(dfd) &#123;</div><div class="line">        setTimeout(function() &#123;</div><div class="line">            dfd.resolve(&apos;resolve&apos;);</div><div class="line">        &#125;, 1000)</div><div class="line">        return dfd.promise();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $.when(simulateAjax(dfd))</div><div class="line">    .done(function(text) &#123;</div><div class="line">        console.log(text, &apos;done&apos;);</div><div class="line">    &#125;)</div><div class="line">    .done(function(text) &#123;</div><div class="line">        console.log(text, &apos;done&apos;);</div><div class="line">    &#125;)</div><div class="line">    .fail(function(text) &#123;</div><div class="line">        console.log(text, &apos;fail&apos;);</div><div class="line">    &#125;)</div><div class="line">    .always(function(text) &#123;</div><div class="line">        console.log(text, &apos;always&apos;);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">resolve done</div><div class="line">resolve done</div><div class="line">resolve always</div></pre></td></tr></table></figure></p>
+<p>如果把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfd.resolve(&apos;resolve&apos;);</div></pre></td></tr></table></figure></p>
+<p>换成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfd.reject(&apos;reject&apos;);</div></pre></td></tr></table></figure></p>
+<p>则结果输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">reject fail</div><div class="line">reject always</div></pre></td></tr></table></figure></p>
+<p>以上的是关于jQuery.Deferred的介绍及一些用法实例，可以根据业务需求处理成为一种链式的代码格式，去除掉那种多层回调。</p>
+<h4 id="三、原生promise"><a href="#三、原生promise" class="headerlink" title="三、原生promise"></a>三、原生promise</h4><p>参考:<br> 1.<a href="http://web.jobbole.com/89780/" target="_blank" rel="external">jQuery的Deferred对象概述</a><br> 2.<a href="http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html" target="_blank" rel="external">jQuery的deferred对象详解</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/06/回调的进阶/" data-id="cj15z9uma00012s240k4cwjvl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/06/回调的进阶/" data-id="cj167yt3u0003be24h1zeq6do" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,11 +184,11 @@
           </li>
         
           <li>
-            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
+            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
+            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
           </li>
         
       </ul>
