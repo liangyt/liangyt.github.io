@@ -61,6 +61,85 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-回调的进阶" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/回调的进阶/" class="article-date">
+  <time datetime="2017-04-06T03:51:02.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/回调的进阶/">回调的进阶</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>回调地狱问题？</p>
+</blockquote>
+<p>有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  </p>
+<ol>
+<li>使用原生JS实现。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function first() &#123;</div><div class="line">    var url = &apos;&apos;;</div><div class="line">    var result;</div><div class="line"></div><div class="line">    var XHR = new XMLHttpRequest();</div><div class="line">    XHR.open(&apos;GET&apos;, url, true);</div><div class="line">    XHR.send();</div><div class="line"></div><div class="line">    XHR.onreadystatechange = function() &#123;</div><div class="line">        if (XHR.readyState == 4 &amp;&amp; XHR.status == 200) &#123;</div><div class="line">            result = XHR.response;</div><div class="line">            second(result.id)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function second(id) &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/06/回调的进阶/" data-id="cj15z9uma00012s240k4cwjvl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css-font小知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/30/css-font小知识点/" class="article-date">
+  <time datetime="2017-03-30T08:28:02.000Z" itemprop="datePublished">2017-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/css-font小知识点/">css font小知识点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/30/css-font小知识点/" data-id="cj15z9um500002s2457hgj8rg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-enlarge-js-放大图片" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/16/enlarge-js-放大图片/" class="article-date">
@@ -88,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/enlarge-js-放大图片/" data-id="cj0w4hce50000s224ihjfm030" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/enlarge-js-放大图片/" data-id="cj15z9umd00022s24vqep6kyt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -124,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/hello-world/" data-id="cj0w4hcef0001s2247yylnyew" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/hello-world/" data-id="cj15z9umf00032s24le6lhkqy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -151,7 +230,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -162,6 +241,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/04/06/回调的进阶/">回调的进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/30/css-font小知识点/">css font小知识点</a>
+          </li>
         
           <li>
             <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
