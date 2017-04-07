@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>回调的进阶 | Liangyt</title>
+  <title>回调 | Liangyt</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一、回调地狱问题？
 以下的代码建议在Node.js环境下运行，可以安装两个插件 npm install xmlhttprequest jsdom
@@ -12,7 +12,7 @@
 
 使用原生JS实现。12345678910111213141516171819202122232425262728293031323334function first() &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="回调的进阶">
+<meta property="og:title" content="回调">
 <meta property="og:url" content="http://yoursite.com/2017/04/06/回调的进阶/index.html">
 <meta property="og:site_name" content="Liangyt">
 <meta property="og:description" content="一、回调地狱问题？
@@ -21,9 +21,9 @@
 有个需求:先通过接口请求一个ID，再使用这个ID作为参数请求另外一个接口  
 
 使用原生JS实现。12345678910111213141516171819202122232425262728293031323334function first() &amp;">
-<meta property="og:updated_time" content="2017-04-06T09:47:02.000Z">
+<meta property="og:updated_time" content="2017-04-07T05:24:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="回调的进阶">
+<meta name="twitter:title" content="回调">
 <meta name="twitter:description" content="一、回调地狱问题？
 以下的代码建议在Node.js环境下运行，可以安装两个插件 npm install xmlhttprequest jsdom
 
@@ -67,9 +67,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -92,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      回调的进阶
+      回调
     </h1>
   
 
@@ -122,12 +122,20 @@
 <p>换成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfd.reject(&apos;reject&apos;);</div></pre></td></tr></table></figure></p>
 <p>则结果输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">reject fail</div><div class="line">reject always</div></pre></td></tr></table></figure></p>
 <p>以上的是关于jQuery.Deferred的介绍及一些用法实例，可以根据业务需求处理成为一种链式的代码格式，去除掉那种多层回调。</p>
-<h4 id="三、原生promise"><a href="#三、原生promise" class="headerlink" title="三、原生promise"></a>三、原生promise</h4><p>参考:<br> 1.<a href="http://web.jobbole.com/89780/" target="_blank" rel="external">jQuery的Deferred对象概述</a><br> 2.<a href="http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html" target="_blank" rel="external">jQuery的deferred对象详解</a></p>
+<h4 id="三、原生promise"><a href="#三、原生promise" class="headerlink" title="三、原生promise"></a>三、原生promise</h4><p>先来感受一下基本语法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function fn(type) &#123;</div><div class="line">    var pm = new Promise(function(resolve, reject) &#123;</div><div class="line">        type ? resolve(&apos;我是resolve&apos;) : reject(&apos;我是reject&apos;)</div><div class="line">    &#125;)</div><div class="line">    return pm;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">fn(true)</div><div class="line">.then(function(arg) &#123;</div><div class="line">    console.log(arg)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">fn(false)</div><div class="line">.then(function(arg) &#123;</div><div class="line">    console.log(arg)</div><div class="line">&#125;)</div><div class="line">.catch(function(arg) &#123;</div><div class="line">    console.log(arg)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">我是resolve</div><div class="line">我是reject</div></pre></td></tr></table></figure></p>
+<p>then方法可以接受两个参数，刚才上面的代码可以修改成这样也是可以的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">fn(false)</div><div class="line">.then(function(arg) &#123;</div><div class="line">    console.log(arg)</div><div class="line">&#125;, function(arg) &#123;</div><div class="line">    console.log(arg)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>同样也有达到一样的效果，then 第二个参数 就是处理 catch 回调的.<br>那现在回到开始的需求，就可以这样实现:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">function getJSON(url) &#123;</div><div class="line">    return new Promise(function(resolve, reject) &#123;</div><div class="line">        var XHR = new XMLHttpRequest();</div><div class="line">        XHR.open(&apos;GET&apos;, url, true);</div><div class="line">        XHR.send();</div><div class="line"></div><div class="line">        XHR.onreadystatechange = function() &#123;</div><div class="line">            if (XHR.readyState == 4) &#123;</div><div class="line">                if (XHR.status == 200) &#123;</div><div class="line">                    try &#123;</div><div class="line">                        var response = JSON.parse(XHR.responseText);</div><div class="line">                        resolve(response);</div><div class="line">                    &#125; catch (e) &#123;</div><div class="line">                        reject(e);</div><div class="line">                    &#125;</div><div class="line">                &#125; else &#123;</div><div class="line">                    reject(new Error(XHR.statusText));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">getJSON(url).then(resp =&gt; &#123;</div><div class="line">    url += &apos;?id=&apos; + resp.id</div><div class="line">    var XHR = new XMLHttpRequest();</div><div class="line">    XHR.open(&apos;GET&apos;, url, true);</div><div class="line">    XHR.send();</div><div class="line"></div><div class="line">    XHR.onreadystatechange = function() &#123;</div><div class="line">        if (XHR.readyState == 4) &#123;</div><div class="line">            if (XHR.status == 200) &#123;</div><div class="line">                console.log(XHR.responseText)</div><div class="line">            &#125; else &#123;</div><div class="line">                new Error(XHR.statusText);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>这是使用原生Promise的基本用法，还有其它的一些使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Promise.all</div><div class="line">Promise.race</div><div class="line">Promise.resolve</div><div class="line">Promise.reject</div><div class="line">Promise.try</div><div class="line">.done() 参数为两个回调方法，放在最后，不管状态如果都会执行</div><div class="line">.finally() 参数为一个回调方法，放在最后，不管状态如果都会执行</div></pre></td></tr></table></figure></p>
+<p>更多详情的介绍可以看参考链接。  </p>
+<h4 id="四、Async-Await-node-7-7及以上执行"><a href="#四、Async-Await-node-7-7及以上执行" class="headerlink" title="四、Async/Await  node 7.7及以上执行"></a>四、Async/Await  node 7.7及以上执行</h4><p>同样的，先上代码直观的感受一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function getJSON() &#123;</div><div class="line">    return new Promise((resolve, reject) =&gt; &#123;</div><div class="line">        resolve(&#123;</div><div class="line">            a: &apos;a&apos;</div><div class="line">        &#125;)</div><div class="line">    &#125; )</div><div class="line">&#125;</div><div class="line">const makeRequest = async () =&gt; &#123;</div><div class="line">    console.log(await getJSON())</div><div class="line">    return &apos;done&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">makeRequest()</div></pre></td></tr></table></figure></p>
+<p>这是一种同步执行的写法了，来一个更直观一些的处理开头提到的实现方式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">function getJSON(url) &#123;</div><div class="line">    return new Promise((resolve, reject) =&gt; &#123;</div><div class="line"></div><div class="line">        var XHR = new XMLHttpRequest();</div><div class="line">        XHR.open(&apos;GET&apos;, url, true);</div><div class="line">        XHR.send();</div><div class="line"></div><div class="line">        XHR.onreadystatechange = () =&gt; &#123;</div><div class="line">            if (XHR.readyState == 4) &#123;</div><div class="line">                if (XHR.status == 200) &#123;</div><div class="line">                    try &#123;</div><div class="line">                        var response = JSON.parse(XHR.responseText);</div><div class="line">                        resolve(response);</div><div class="line">                    &#125; catch (e) &#123;</div><div class="line">                        reject(e);</div><div class="line">                    &#125;</div><div class="line">                &#125; else &#123;</div><div class="line">                    reject(new Error(XHR.statusText));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; )</div><div class="line">&#125;</div><div class="line"></div><div class="line">const makeRequest = async () =&gt; &#123;</div><div class="line">    var obj_first = await getJSON(url)</div><div class="line">    var obj_second = await getJSON(url + &apos;?id=&apos; + obj_first.id);</div><div class="line">    console.log(obj_second)</div><div class="line">&#125;</div><div class="line"></div><div class="line">makeRequest()</div></pre></td></tr></table></figure></p>
+<p>参考:<br> 1.<a href="http://web.jobbole.com/89780/" target="_blank" rel="external">jQuery的Deferred对象概述</a><br> 2.<a href="http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html" target="_blank" rel="external">jQuery的deferred对象详解</a><br> 3.<a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">Promise 对象</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/06/回调的进阶/" data-id="cj167yt3u0003be24h1zeq6do" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/06/回调的进阶/" data-id="cj17e0bzq0003kj24k61zrlss" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -138,7 +146,7 @@
   
   
     <a href="/2017/03/30/css-font小知识点/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">css font小知识点</div>
     </a>
   
@@ -171,12 +179,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/04/06/回调的进阶/">回调的进阶</a>
+            <a href="/2017/04/06/回调的进阶/">回调</a>
           </li>
         
           <li>
@@ -184,11 +192,11 @@
           </li>
         
           <li>
-            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
+            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
+            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
           </li>
         
       </ul>
@@ -204,7 +212,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 Liangyt<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
