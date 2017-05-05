@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webSocket实现的聊天Demo | Liangyt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这是一个基于 node + express + websocket 环境实现的聊天例子，主要是为了熟悉一下webSocket处理流程.先一下效果图：例子没有使用厉害的那个 socket.io 组件，用了另外一个比较简单一点的 webSocket 组件 ws.
+话不多说，给出简单的html文件代码，类似于刚切出来的效果，还没有加入JS处理(因为样式不多，就直接写成内部样式了，不喜欢的可以另写一个文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webSocket实现的聊天Demo">
+<meta property="og:url" content="http://yoursite.com/2017/04/28/webSocket实现的聊天Demo/index.html">
+<meta property="og:site_name" content="Liangyt">
+<meta property="og:description" content="这是一个基于 node + express + websocket 环境实现的聊天例子，主要是为了熟悉一下webSocket处理流程.先一下效果图：例子没有使用厉害的那个 socket.io 组件，用了另外一个比较简单一点的 webSocket 组件 ws.
+话不多说，给出简单的html文件代码，类似于刚切出来的效果，还没有加入JS处理(因为样式不多，就直接写成内部样式了，不喜欢的可以另写一个文件">
+<meta property="og:image" content="http://opgr6exjm.bkt.clouddn.com/ws.gif">
+<meta property="og:image" content="http://opgr6exjm.bkt.clouddn.com/ws.png">
+<meta property="og:updated_time" content="2017-05-05T05:42:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webSocket实现的聊天Demo">
+<meta name="twitter:description" content="这是一个基于 node + express + websocket 环境实现的聊天例子，主要是为了熟悉一下webSocket处理流程.先一下效果图：例子没有使用厉害的那个 socket.io 组件，用了另外一个比较简单一点的 webSocket 组件 ws.
+话不多说，给出简单的html文件代码，类似于刚切出来的效果，还没有加入JS处理(因为样式不多，就直接写成内部样式了，不喜欢的可以另写一个文件">
+<meta name="twitter:image" content="http://opgr6exjm.bkt.clouddn.com/ws.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="Liangyt" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Liangyt</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webSocket实现的聊天Demo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/28/webSocket实现的聊天Demo/" class="article-date">
+  <time datetime="2017-04-28T06:58:40.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webSocket实现的聊天Demo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是一个基于 node + express + websocket 环境实现的聊天例子，主要是为了熟悉一下webSocket处理流程.<br>先一下效果图：<br><img src="http://opgr6exjm.bkt.clouddn.com/ws.gif" alt="动态图"><br>例子没有使用厉害的那个 <code>socket.io</code> 组件，用了另外一个比较简单一点的 webSocket 组件 <a href="https://github.com/websockets/ws" target="_blank" rel="external"><code>ws</code></a>.</p>
+<p>话不多说，给出简单的html文件代码，类似于刚切出来的效果，还没有加入JS处理(因为样式不多，就直接写成内部样式了，不喜欢的可以另写一个文件使用 link 引用进来):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html lang=&quot;zh-cn&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;meta name=&quot;keywords&quot; content=&quot;&quot; /&gt;</div><div class="line">    &lt;meta name=&quot;description&quot; content=&quot; &quot; /&gt;</div><div class="line">    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=Edge, chrome=1&quot; /&gt;</div><div class="line">    &lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;</div><div class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot; /&gt;</div><div class="line">    &lt;title&gt;Chat&lt;/title&gt;</div><div class="line">    &lt;style&gt;</div><div class="line">        .self &#123;</div><div class="line">            text-align: right;</div><div class="line">        &#125;</div><div class="line">        .online &#123;</div><div class="line">            text-align: center;</div><div class="line">            color: #ccc;</div><div class="line">        &#125;</div><div class="line">        .othen-content &#123;</div><div class="line">            background-color: #ccc;</div><div class="line">            border-radius: 5%;</div><div class="line">            padding: 10px;</div><div class="line">            line-height: 36px;</div><div class="line">        &#125;</div><div class="line">        .other &#123;</div><div class="line">            margin: 30px 0 30px 5px;</div><div class="line">        &#125;</div><div class="line">        .self &#123;</div><div class="line">            margin: 30px 0 30px 5px;</div><div class="line">        &#125;</div><div class="line">        .self-content &#123;</div><div class="line">            background-color: red;</div><div class="line">            border-radius: 5%;</div><div class="line">            padding: 10px;</div><div class="line">            line-height: 36px;</div><div class="line">        &#125;</div><div class="line">        .footer &#123;</div><div class="line">            width: 100%;</div><div class="line">            position: fixed;</div><div class="line">            bottom: 0;</div><div class="line">            padding: 10px;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        .send-content &#123;</div><div class="line">            width: 70%;</div><div class="line">            height: 30px;</div><div class="line">            border-radius: 5%;</div><div class="line">            border: 1px solid #ccc;</div><div class="line">        &#125;</div><div class="line">        .send-button &#123;</div><div class="line">            font-size: 18px;</div><div class="line">            width: 60px;</div><div class="line">            height: 30px;</div><div class="line">        &#125;</div><div class="line">        .my-name-bg &#123;</div><div class="line">            position: fixed;</div><div class="line">            top: 0;</div><div class="line">            z-index: 99;</div><div class="line">            width: 100%;</div><div class="line">            height: 100%;</div><div class="line">            background-color: black;</div><div class="line">        &#125;</div><div class="line">        .my-name &#123;</div><div class="line">            position: relative;</div><div class="line">            background-color: white;</div><div class="line">            top: 50%;</div><div class="line">            margin: 0 auto;</div><div class="line">            width: 200px;</div><div class="line">            height: 80px;</div><div class="line">            text-align: center;</div><div class="line">            padding-top: 10px;</div><div class="line">        &#125;</div><div class="line">        .my-name-tip &#123;</div><div class="line">            height: 30px;</div><div class="line">        &#125;</div><div class="line">        #my-name &#123;</div><div class="line">            border: 1px solid #ccc;</div><div class="line">        &#125;</div><div class="line">        .message-tip &#123;</div><div class="line">            text-align: center;</div><div class="line">            font-size: 10px;</div><div class="line">            color: #ccc;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;container&quot;&gt;</div><div class="line">        &lt;div class=&quot;online&quot;&gt;</div><div class="line">            当前在线人数 &lt;span id=&quot;onlinecount&quot; class=&quot;online-count&quot;&gt;&lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class=&quot;content&quot;&gt;</div><div class="line">            &lt;div class=&quot;other&quot;&gt;</div><div class="line">                &lt;span&gt;路人:&lt;/span&gt;&lt;span class=&quot;othen-content&quot;&gt;说得不错&lt;/span&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;other&quot;&gt;</div><div class="line">                &lt;span&gt;路人:&lt;/span&gt;&lt;span class=&quot;othen-content&quot;&gt;说得不错&lt;/span&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;self&quot;&gt;</div><div class="line">                &lt;span class=&quot;self-content&quot;&gt;你说得不错你说得不错你说得不错你说得不错&lt;/span&gt;&lt;span&gt;自已&lt;/span&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;message-tip&quot;&gt;</div><div class="line">                &lt;span&gt;你说得不错你说得不错你说得不错你说得不错&lt;/span&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class=&quot;footer&quot;&gt;</div><div class="line">            &lt;span&gt;</div><div class="line">                &lt;input type=&quot;text&quot; id=&quot;content&quot; class=&quot;send-content&quot;&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">            &lt;span&gt;</div><div class="line">                &lt;input type=&quot;button&quot; value=&quot;发送&quot; class=&quot;send-button&quot; id=&quot;send&quot;&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;my-name-bg&quot;&gt;</div><div class="line">        &lt;div class=&quot;my-name&quot;&gt;</div><div class="line">            &lt;div class=&quot;my-name-tip&quot;&gt;</div><div class="line">            输入你的名称按回车：</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;input type=&quot;text&quot; id=&quot;my-name&quot;&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>效果图就是下面这样：<br><img src="http://opgr6exjm.bkt.clouddn.com/ws.png" alt="静态效果图"></p>
+<p>静态页完成了，那接下来就是逻辑部分的实现了.<br>项目的创建目录结构是什么样的这里就不过多啰嗦了，知道node的同学估计不会陌生，这里写一下 websocket 与 exporess的结合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line">var express = require(&apos;express&apos;);</div><div class="line">var app = express();</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line">var bodyParser = require(&apos;body-parser&apos;);</div><div class="line">var http = require(&apos;http&apos;);</div><div class="line">const webSocket = require(&apos;ws&apos;);</div><div class="line"></div><div class="line">// view engine setup</div><div class="line">// 设置路由访问根目录</div><div class="line">app.set(&apos;views&apos;, path.join(__dirname, &apos;views&apos;));</div><div class="line">// 设置模板引擎为 ejs</div><div class="line">app.set(&apos;view engine&apos;, &apos;ejs&apos;);</div><div class="line"></div><div class="line">app.use(bodyParser.json());</div><div class="line">app.use(bodyParser.urlencoded(&#123; extended: false &#125;));</div><div class="line">// 这个是设置静态资源路径，这里用不上</div><div class="line">app.use(express.static(path.join(__dirname, &apos;public&apos;)));</div><div class="line">// express 路由</div><div class="line">var router = express.Router();</div><div class="line"></div><div class="line">router.get(&apos;/&apos;, function(req, res, next) &#123;</div><div class="line">  res.render(&apos;index&apos;, &#123; title: &apos;webSocket测试&apos; &#125;);</div><div class="line">&#125;);</div><div class="line">app.use(&apos;/&apos;, router);</div><div class="line">// 使用 node 内置的 http 创建服务</div><div class="line">var server = http.createServer(app);</div><div class="line"></div><div class="line">// 这部分是处理 webSocket 在node服务端的代码</div><div class="line">var wsServer = null;</div><div class="line">var keepAlive = null;</div><div class="line">var aliveCount = 0;</div><div class="line"></div><div class="line">var wsService = &#123;</div><div class="line">    connection (ws) &#123;</div><div class="line">        // 连上一个添加一个在线人数</div><div class="line">        aliveCount++;</div><div class="line"></div><div class="line">        ws.on(&apos;message&apos;, function incoming(message) &#123;</div><div class="line">            wsServer.clients.forEach(function(client) &#123;</div><div class="line">                // 发送给自已</div><div class="line">                // if(client == ws) &#123;</div><div class="line">                //     client.send(&quot;你刚才给服务端发送了数据：&quot; + message)</div><div class="line">                // &#125;</div><div class="line">                // 发送给其它人</div><div class="line">                if(client != ws) &#123;</div><div class="line">                    var mo = JSON.parse(message);</div><div class="line">                    mo.aliveCount = aliveCount;</div><div class="line">                    client.send(JSON.stringify(mo))</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        // 客户端断开在线数减一</div><div class="line">        ws.on(&apos;close&apos;, function() &#123;</div><div class="line">            aliveCount--</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">        // 所有客户端的 onmessage 监听都会收到 这个是不是可以当作心跳保持呢</div><div class="line">        keepAlive = setInterval(function() &#123;</div><div class="line">            // WebSocket.CONNECTING = 0;</div><div class="line">            // WebSocket.OPEN = 1;</div><div class="line">            // WebSocket.CLOSING = 2;</div><div class="line">            // WebSocket.CLOSED = 3;</div><div class="line">            if(ws.readyState === 1) &#123;</div><div class="line">                ws.send(JSON.stringify(&#123;keepAlive: 1&#125;))</div><div class="line">            &#125; else &#123;</div><div class="line">                clearInterval(keepAlive)</div><div class="line">            &#125;</div><div class="line">        &#125;, 5000)</div><div class="line">    &#125;,</div><div class="line">    setWss (wss) &#123;</div><div class="line">        wsServer = wss</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">const wss = new webSocket.Server(&#123;server&#125;);</div><div class="line">// 监听客户端websocket连接</div><div class="line">wss.on(&apos;connection&apos;, wsService.connection)</div><div class="line">wsService.setWss(wss)</div><div class="line"></div><div class="line">var port = 4000;</div><div class="line">// 监听 4000 端口</div><div class="line">server.listen(port);</div><div class="line">server.on(&apos;error&apos;, function(err)&#123;&#125;);</div><div class="line">server.on(&apos;listening&apos;, function() &#123;</div><div class="line">    console.log(&apos;listening on:&apos; + port)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>看这代码其实也并不多啊，主要就是三个事件：<br>connection: 监听客户端连接<br>mssage: 监听客户端消息<br>close: 监听客户端是否关闭<br>服务端的代码基本就这些了，看看客户端的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;container&quot;&gt;</div><div class="line">        &lt;div class=&quot;online&quot;&gt;</div><div class="line">            当前在线人数 &lt;span id=&quot;onlinecount&quot; class=&quot;online-count&quot;&gt;1&lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class=&quot;content&quot; id=&quot;content-list&quot;&gt;</div><div class="line">            </div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div class=&quot;footer&quot;&gt;</div><div class="line">            &lt;span&gt;</div><div class="line">                &lt;input type=&quot;text&quot; id=&quot;content&quot; class=&quot;send-content&quot;&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">            &lt;span&gt;</div><div class="line">                &lt;input type=&quot;button&quot; value=&quot;发送&quot; class=&quot;send-button&quot; id=&quot;send&quot;&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;my-name-bg&quot;&gt;</div><div class="line">        &lt;div class=&quot;my-name&quot;&gt;</div><div class="line">            &lt;div class=&quot;my-name-tip&quot;&gt;</div><div class="line">            输入你的名称按回车：</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;input type=&quot;text&quot; id=&quot;my-name&quot;&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>html代码基本就是添加了一些ID和删除了动态生成部分，再来看看JS代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        var contentList = document.querySelector(&apos;#content-list&apos;);</div><div class="line">        var onlineCount = document.querySelector(&apos;#onlinecount&apos;);</div><div class="line">        var myName = document.querySelector(&apos;#my-name&apos;);</div><div class="line">        var myNamecontainr = document.querySelector(&apos;.my-name-bg&apos;);</div><div class="line">        var myNameContent = localStorage.getItem(&apos;myname&apos;)</div><div class="line"></div><div class="line">        if(localStorage.getItem(&apos;myname&apos;)) &#123;</div><div class="line">            myNamecontainr.remove()</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        var ctx = window.location.host;</div><div class="line">        var ws = new WebSocket(&apos;ws://&apos; + ctx);</div><div class="line">        // 监听socket 是否连上</div><div class="line">        ws.onopen = function() &#123;</div><div class="line">            contentList.innerHTML = contentList.innerHTML + &apos;&lt;div class=&quot;message-tip&quot;&gt;&lt;span&gt;连上服务器了&lt;/span&gt;&lt;/div&gt;&apos;</div><div class="line">            handle()</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        function handle() &#123;</div><div class="line">            ws.onmessage = function(e) &#123;</div><div class="line">                console.log(e.data)</div><div class="line">                var mo = JSON.parse(e.data);</div><div class="line"></div><div class="line">                if(mo.aliveCount) &#123;</div><div class="line">                    var item = &apos;&lt;div class=&quot;other&quot;&gt;&apos; +</div><div class="line">                        &apos;&lt;span&gt;&apos; + mo.name + &apos;:&lt;/span&gt;&lt;span class=&quot;othen-content&quot;&gt;&apos; + mo.content + &apos;&lt;/span&gt;&apos; +</div><div class="line">                    &apos;&lt;/div&gt;&apos;</div><div class="line">                    contentList.innerHTML = contentList.innerHTML + item</div><div class="line">                    onlineCount.innerHTML = mo.aliveCount</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            ws.onclose = function(e) &#123;</div><div class="line">                contentList.innerHTML = contentList.innerHTML + &apos;&lt;div class=&quot;message-tip&quot;&gt;&lt;span&gt;服务器关闭了&lt;/span&gt;&lt;/div&gt;&apos;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            window.onunload = function()&#123;</div><div class="line">                ws.close();</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            var content = document.querySelector(&apos;#content&apos;)</div><div class="line">            // 发送内容输入框按下回车键监听</div><div class="line">            content.addEventListener(&apos;keydown&apos;, function(e) &#123;</div><div class="line">                if(e.keyCode == 13) &#123;</div><div class="line">                    send()</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">            // 监控发送按钮</div><div class="line">            document.querySelector(&apos;#send&apos;).addEventListener(&apos;click&apos;, function(e) &#123;</div><div class="line">                send()</div><div class="line">            &#125;)</div><div class="line"></div><div class="line">            // 发送消息</div><div class="line">            function send() &#123;</div><div class="line">                var value = content.value</div><div class="line">                content.value = &apos;&apos;</div><div class="line">                var item = &apos;&lt;div class=&quot;self&quot;&gt;&apos; +</div><div class="line">                        &apos;&lt;span class=&quot;self-content&quot;&gt;&apos; + value + &apos;&lt;/span&gt;&lt;span&gt;&apos; + myNameContent + &apos;&lt;/span&gt;&apos; +</div><div class="line">                    &apos;&lt;/div&gt;&apos;</div><div class="line">                    contentList.innerHTML = contentList.innerHTML + item</div><div class="line"></div><div class="line">                ws.send(JSON.stringify(&#123;</div><div class="line">                    name: myNameContent,</div><div class="line">                    content: value</div><div class="line">                &#125;))</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            // 输入用户名称并保存</div><div class="line">            myName.addEventListener(&apos;keyup&apos;, function(e) &#123;</div><div class="line">                var n = myName.value.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, &apos;&apos;);</div><div class="line">                if(e.keyCode === 13 &amp;&amp; n != &apos;&apos;) &#123;</div><div class="line">                    localStorage.setItem(&apos;myname&apos;, n)</div><div class="line">                    myNameContent = n</div><div class="line">                    myNamecontainr.remove()</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>没有使用JS组件，使用的原生API；主要是做两件事，监听服务端数据过来和发送数据到服务端。逻辑也不复杂，上看就明白了。</p>
+<p>可以克隆项目到本地，跑起来看看效果.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/28/webSocket实现的聊天Demo/" data-id="cj2bg5u2d0003nv245ffqe9w8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/06/回调的进阶/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">回调</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Arkiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Siste innlegg</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/28/webSocket实现的聊天Demo/">webSocket实现的聊天Demo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/06/回调的进阶/">回调</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/30/css-font小知识点/">css font小知识点</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/16/enlarge-js-放大图片/">enlarge.js 放大图片</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/16/hello-world/">gulp 简单开发流程配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Liangyt<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
